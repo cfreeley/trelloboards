@@ -1,0 +1,16 @@
+{
+	"name": "Boards for Trello",
+	"version": "0.9.6",
+	"manifest_version": 2,
+	"description": "View a list of all of your Trello boards.",
+	"icons": {
+		"128": "icon-128.png",
+		"32": "icon-32.png",
+		"48": "icon-48.png"
+	},
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "popup.html"
+	},
+	"permissions": ["http://trello.com/", "http://api.trello.com/"]
+}

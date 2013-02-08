@@ -1,0 +1,149 @@
+body {
+    min-width:     		320px;
+    font:				14px/18px "Helvetica Neue",Arial,Helvetica,sans-serif;
+}
+
+#cetb__logged_out {
+    text-align:			center;
+    font-size:      	15px;
+}
+
+#cetb__login_error {
+	border:				1px solid red;
+	color:				red;
+	padding:			6px;
+}
+
+#cetb__boards_list {
+	padding:			0;
+	margin:				0;
+}
+
+#cetb__boards_list li {
+	padding:			0;
+	margin:				0 0 4px 0;
+}
+
+#cetb__boards_list li a {
+	color:				#444444;
+	cursor:				pointer;
+	display:			block;
+	font-weight:		bold;
+	padding:			6px 10px;
+	text-decoration:	none;
+}
+
+#cetb__boards_list li a:hover {
+	background:			#2887bd;
+	color:				#fff;
+	text-shadow:		0 1px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+	font:				14px/18px "Helvetica Neue",Arial,Helvetica,sans-serif;
+	color:				#939393;
+	font-weight:		bold;
+	overflow:			hidden;
+	border-bottom:		1px solid #DCDCDC;
+	position:			relative;
+	padding:			8px 12px;
+	text-align:			center;
+}
+
+h1 a {
+	padding:			2px;
+	position:			absolute;
+	top:				6px;
+	right:				4px;
+	text-decoration:	none;
+	color: 				#939393;
+}
+
+#cetb__updating {
+	position:			absolute;
+	top:				8px;
+	left:				2px;
+	display:			block;
+	width:				16px;
+	height:				16px;
+	background: 		url('ajax-loader.gif') no-repeat;
+}
+
+.footer {
+	padding:			8px 12px;
+	text-align:			right;
+	border-top:			1px solid #DCDCDC;
+}
+
+.trello-link {
+	font-size:				14px;
+	color:					#333;
+	text-decoration:		none;
+	margin-right:			14px;
+}
+
+.trello-link:hover {
+	text-decoration:		underline;
+}
+
+.button{
+    display: inline-block;
+    text-decoration: none;
+    font: bold 12px/12px HelveticaNeue, Arial;
+    padding: 8px 11px;
+    color: #555;
+    border: 1px solid #dedede;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.button.grey{
+	padding: 4px 8px;
+    background: #bdbdbd;
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#cacaca', endColorstr='#aeaeae'); /*  IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#cacaca), to(#aeaeae)); /*  WebKit */
+    background: -moz-linear-gradient(top,  #cacaca, #aeaeae);
+    border-color: #b5b5b5 #a1a1a1 #8f8f8f;
+    color: #555;
+    text-shadow: 0 1px 0 #d4d4d4;
+    -webkit-box-shadow: 0 1px 1px #c9c9c9, inset 0 1px 0 #d7d7d7;
+    -moz-box-shadow: 0 1px 1px #c9c9c9, inset 0 1px 0 #d7d7d7;
+    box-shadow: 0 1px 1px #c9c9c9, inset 0 1px 0 #d7d7d7;    
+}
+.button.grey:hover{
+    background: #c2c2c2;
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#bcbcbc', endColorstr='#c2c2c2'); /*  IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#bcbcbc), to(#c2c2c2)); /*  WebKit */
+    background: -moz-linear-gradient(top,  #bcbcbc, #c2c2c2);
+    border-color: #989898 #8e8e8e #878787;
+    text-shadow: 0 1px 0 #dadada;
+    -webkit-box-shadow: 0 1px 1px #cdcdcd, inset 0 1px 0 #ccc;
+    -moz-box-shadow: 0 1px 1px #cdcdcd, inset 0 1px 0 #ccc;
+    box-shadow: 0 1px 1px #cdcdcd, inset 0 1px 0 #ccc;    
+}
+
+.button.green{
+    background: #b7d770;
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#cae285', endColorstr='#9fcb57'); /*  IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#cae285), to(#9fcb57)); /*  WebKit */
+    background: -moz-linear-gradient(top,  #cae285, #9fcb57);
+    border-color: #adc671 #98b65b #87aa4a;
+    color: #5d7731;
+    text-shadow: 0 1px 0 #cfe5a4;
+    -webkit-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #d7e9a4;
+    -moz-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #d7e9a4;
+    box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #d7e9a4;    
+}
+.button.green:hover{
+    background: #b9d972;
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#b8d872', endColorstr='#b9d972'); /*  IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#b8d872), to(#b9d972)); /*  WebKit */
+    background: -moz-linear-gradient(top,  #b8d872, #b9d972);
+    border-color: #8bb14d #83a648 #7d9e45;
+    text-shadow: 0 1px 0 #d5e8aa;
+    -webkit-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #cae295;
+    -moz-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #cae295;
+    box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #cae295;    
+}
