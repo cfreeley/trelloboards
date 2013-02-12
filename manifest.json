@@ -12,5 +12,6 @@
 		"default_icon": "icon.png",
 		"default_popup": "popup.html"
 	},
-	"permissions": ["http://trello.com/", "http://api.trello.com/"]
+	"permissions": ["https://api.trello.com/"],
+	"content_security_policy": "script-src 'self' https://api.trello.com; object-src 'self'"
 }
