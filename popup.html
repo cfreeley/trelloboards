@@ -1,29 +1,33 @@
-<link rel="stylesheet" href="styles.css" />
+<!DOCTYPE html>
+<html ng-app ng-csp>
+<head>
+	<title>Boards for Trello</title>
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+	<div id="loading_wrapper" style="display: none;">
+		<h1>
+			Boards for Trello
+			<a href="#" id="close">&times;</a>
+			<div id="updating" style="display: none;"></div>
+		</h1>
 
-<h1>
-    Boards for Trello
-    <a href="#" onclick="window.close(); return false;">&times;</a>
-    <div id="cetb__updating" style="display: none;"></div>
-</h1>
+		<div ng-controller="BoardsCtl">
+			<ul id="boards_list">
+				<li ng-repeat="board in boards">
+					<span class="board-name">
+						<a href="{{board.url}}" target="_blank">{{board.name}}</a>
+					</span>
+				</li>
+			</ul>
+		</div>
 
-<div id="cetb__logged_out" style="display: none;">
-    <p><button type="button" id="cetb__auth" class="button green">Connect To Trello</button></p>
-    <p>Then paste the token here:<p>
-    <p id="cetb__login_error" style="display: none;">Uh-oh! We couldn't verify that token!. Please try again.</p>
-    <p>
-        <input type="text" placeholder="Verification Code" id="cetb__k" />
-        <button type="button" id="cetb__login" class="button grey">Go!</button>
-    </p>
-</div>
-
-<div id="cetb__logged_in" style="display: none;">
-    <ul id="cetb__boards_list"></ul>
-</div>
-
-<div class="footer">
-    <a href="http://trello.com/" target="_blank" class="trello-link">Go to Trello.com</a>
-    <button type="button" id="cetb__logout_button" style="display: none;" class="button grey">Logout</button>
-</div>
-
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="tb.js"></script>
+		<div class="footer">
+			<a href="https://trello.com/" target="_blank" class="trello-link">Go to trello.com</a>
+		</div>
+	</div>
+	<script type="text/javascript" src="lib/jquery.js"></script>
+	<script type="text/javascript" src="lib/angular.min.js"></script>
+	<script type="text/javascript" src="tb.js"></script>
+</body>
+</html>
