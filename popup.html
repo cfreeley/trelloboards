@@ -9,15 +9,18 @@
 	<div id="loading_wrapper" style="display: none;">
 		<h1>
 			Boards for Trello
-			<a href="#" id="close">&times;</a>
+			<a href="#" id="close" tabindex="-1">&times;</a>
 			<div id="updating" style="display: none;"></div>
 		</h1>
 
 		<div ng-controller="BoardsCtl">
+			<div id="boards_search">
+				<input type="text" id="search_input" ng-model="search.name" placeholder="Search your boards..." autofocus="autofocus" autocomplete="off" />
+			</div>
 			<ul id="boards_list" ng-repeat="org in orgs | orderBy:'sortName'">
-				<li class="org">
+				<li class="org" ng-class="{'org-empty': !(org.boards | filter:search).length}">
 					<span>
-						<a href="{{org.url}}" target="_blank">
+						<a href="{{org.url}}" target="_blank" tabindex="-1">
 							<span ng-switch on="org.logo">
 								<div ng-switch-when="pic" style="background-image: url('https://trello-logos.s3.amazonaws.com/{{org.logoHash}}/30.png');" class="org-logo"></div>
 								<div ng-switch-when="me" class="org-logo org-me"></div>
@@ -27,7 +30,7 @@
 						</a>
 					</span>
 				</li>
-				<li ng-repeat="board in org.boards | orderBy:'sortName'">
+				<li ng-repeat="board in org.boards | filter:search | orderBy:'sortName'">
 					<span class="board-name">
 						<a href="{{board.url}}" target="_blank">{{board.name}}</a>
 					</span>

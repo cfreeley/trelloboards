@@ -40,13 +40,8 @@ function loadBoards(boards, orgs) {
 
 	// Filter out orgs that have no boards, and add to the orgs list.
 	$.each(orgs, function(i, org) {
-		if(org.boards.length) {
-			// Set the sort name of the board allowing case-insensitive sorting
-			org.sortName = org.displayName.toLowerCase();
-			org_boards.push(org);
-		} else {
-			delete orgs_indexed[org.id];
-		}
+		org.sortName = org.displayName.toLowerCase();
+		org_boards.push(org);
 	});
 
 	// Add "my boards"
