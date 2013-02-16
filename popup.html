@@ -13,8 +13,20 @@
 		</h1>
 
 		<div ng-controller="BoardsCtl">
-			<ul id="boards_list">
-				<li ng-repeat="board in boards">
+			<ul id="boards_list" ng-repeat="org in orgs | orderBy:'sortName'">
+				<li class="org">
+					<span>
+						<a href="{{org.url}}" target="_blank">
+							<span ng-switch on="org.logo">
+								<div ng-switch-when="pic" style="background-image: url('https://trello-logos.s3.amazonaws.com/{{org.logoHash}}/30.png');" class="org-logo"></div>
+								<div ng-switch-when="me" class="org-logo org-me"></div>
+								<div ng-switch-when="org" class="org-logo org-default"></div>
+							</span>
+							{{org.displayName}}
+						</a>
+					</span>
+				</li>
+				<li ng-repeat="board in org.boards | orderBy:'sortName'">
 					<span class="board-name">
 						<a href="{{board.url}}" target="_blank">{{board.name}}</a>
 					</span>
