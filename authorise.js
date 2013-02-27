@@ -1,4 +1,5 @@
 $(function() {
+	clearData();
 	Trello.authorize({
 		'name':	"Boards for Trello",
 		'expiration': "never",

@@ -8,19 +8,18 @@ var TB_APP_KEY = 'd8c65fac278e6cfc05f5ef3a88aea5c3';
  * @return {Array}
  */
 function loadBoards(boards, orgs) {
-	var
-		// Hash of orgs, "indexed" by id so boards can be easily sorted
-		orgs_indexed = {'me': {
-			'id': 'me',
-			'name': 'me',
-			'logo': 'me',
-			'url': 'https://trello.com/',
-			'displayName': 'My Boards',
-			'sortName': 'aaa',
-			'boards': []
-		}},
-		// Array of orgs and their boards, to be filtered ready for display
-		org_boards = [];
+	// Hash of orgs, "indexed" by id so boards can be easily sorted
+	var orgs_indexed = {'me': {
+		'id': 'me',
+		'name': 'me',
+		'logo': 'me',
+		'url': 'https://trello.com/',
+		'displayName': 'My Boards',
+		'sortName': 'aaa',
+		'boards': []
+	}},
+	// Array of orgs and their boards, to be filtered ready for display
+	org_boards = [];
 
 	// Load orgs into list
 	$.each(orgs, function(i, org) {
@@ -50,6 +49,22 @@ function loadBoards(boards, orgs) {
 	return org_boards;
 }
 
+function apiError(data, status, headers, config) {
+	console.log("Trello API Error", data, status, headers);
+}
+
+function closePopup() {
+	// Close popup and open auth tab
+	setTimeout(function() {
+		window.close();
+		chrome.tabs.create({url: chrome.extension.getURL('authorise.html')});
+	}, 100);
+}
+
+function trelloApiUrl(path) {
+	return 'https://api.trello.com/1' + path + '?key=' + TB_APP_KEY + '&token=' + localStorage.trello_token;
+}
+
 /**
  * Boards List Angular JS controller
  *
@@ -61,15 +76,17 @@ function BoardsCtl($scope, $http) {
 	// Initialise boards list to local boards list
 	$scope.orgs = JSON.parse(localStorage.trello_orgs || "[]");
 
-	// Send off HTTP reqest to get organisations for user
+	// Send off HTTP request to get organisations for user
 	$http
-		.get('https://api.trello.com/1/members/me/organizations/?key=' + TB_APP_KEY + '&token=' + localStorage.trello_token)
+		.get(trelloApiUrl('/members/me/organizations/'))
+		.error(apiError)
 		.success(function(response_orgs) {
 			// Send off HTTP request to refresh boards list
 			$http
-				.get('https://api.trello.com/1/members/me/boards/?key=' + TB_APP_KEY + '&token=' + localStorage.trello_token)
+				.get(trelloApiUrl('/members/me/boards/'))
+				.error(apiError)
 				.success(function(response_boards) {
-					var orgs = loadBoards(response_boards,response_orgs)
+					var orgs = loadBoards(response_boards, response_orgs)
 					localStorage.trello_orgs = JSON.stringify(orgs);
 					$scope.orgs = orgs;
 				});
@@ -82,14 +99,16 @@ $('#close').click(function(ev) {
 	window.close();
 });
 
+$('#logout').click(function() {
+	clearData();
+	closePopup();
+	return false;
+});
+
 // Initialise the extension!
 $(function() {
 	if(!localStorage.trello_token) {
-		// Close popup and open auth tab
-		setTimeout(function() {
-			window.close();
-			chrome.tabs.create({url: chrome.extension.getURL('authorise.html')});
-		}, 100);
+		closePopup();
 		return;
 	}
 
