@@ -34,7 +34,11 @@ function loadBoards(boards, orgs) {
 		// Set the sort name of the board allowing case-insensitive sorting
 		board.sortName = board.name.toLowerCase();
 		// Push the board onto the list under its parent organisation
-		orgs_indexed[board.idOrganization || 'me'].boards.push(board);
+		if(board.idOrganization && orgs_indexed[board.idOrganization]) {
+			orgs_indexed[board.idOrganization].boards.push(board);
+		} else {
+			orgs_indexed['me'].boards.push(board);
+		}
 	});
 
 	// Filter out orgs that have no boards, and add to the orgs list.
