@@ -1,6 +1,6 @@
 {
 	"name": "Boards for Trello",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"manifest_version": 2,
 	"description": "View a list of all of your Trello boards.",
 	"icons": {
