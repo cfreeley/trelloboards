@@ -8,6 +8,8 @@ var TB_APP_KEY = 'd8c65fac278e6cfc05f5ef3a88aea5c3';
  * @return {Array}
  */
 function loadBoards(boards, orgs) {
+	var i, l, org, board;
+
 	// Hash of orgs, "indexed" by id so boards can be easily sorted
 	var orgs_indexed = {'me': {
 		'id': 'me',
@@ -22,15 +24,18 @@ function loadBoards(boards, orgs) {
 	org_boards = [];
 
 	// Load orgs into list
-	$.each(orgs, function(i, org) {
+	for(i = 0, l = orgs.length; i < l; ++i) {
+		org = orgs[i];
 		org.logo = org.logoHash ? 'pic' : 'org';
-		orgs_indexed[org.id] = $.extend(org, {boards: []});
-	});
+		org.boards = [];
+		orgs_indexed[org.id] = org;
+	}
 
 	// Group the boards into their organisation
-	$.each(boards, function(i, board) {
+	for(i = 0, l = boards.length; i < l; ++i) {
+		board = boards[i];
 		// Don't include closed boards
-		if(board.closed) return;
+		if(board.closed) continue;
 		// Set the sort name of the board allowing case-insensitive sorting
 		board.sortName = board.name.toLowerCase();
 		// Push the board onto the list under its parent organisation
@@ -39,13 +44,14 @@ function loadBoards(boards, orgs) {
 		} else {
 			orgs_indexed['me'].boards.push(board);
 		}
-	});
+	}
 
 	// Filter out orgs that have no boards, and add to the orgs list.
-	$.each(orgs, function(i, org) {
+	for(i = 0, l = orgs.length; i < l; ++i) {
+		org = orgs[i];
 		org.sortName = org.displayName.toLowerCase();
 		org_boards.push(org);
-	});
+	}
 
 	// Add "my boards"
 	org_boards.push(orgs_indexed['me']);
@@ -98,24 +104,26 @@ function BoardsCtl($scope, $http) {
 }
 
 // Setup form elements
-$('#close').click(function(ev) {
+$click('close', function(ev) {
 	ev.stopPropagation();
 	window.close();
 });
 
-$('#logout').click(function() {
+$click('logout', function() {
 	clearData();
 	closePopup();
 	return false;
 });
 
 // Initialise the extension!
-$(function() {
+function init() {
 	if(!localStorage.trello_token) {
 		closePopup();
 		return;
 	}
 
 	// show the boards list.
-	$('#loading_wrapper').show();
-});
+	$show('loading_wrapper');
+}
+
+$onload(init);

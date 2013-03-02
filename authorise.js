@@ -1,16 +1,17 @@
-$(function() {
+function init() {
 	clearData();
 	Trello.authorize({
 		'name':	"Boards for Trello",
 		'expiration': "never",
 		'success': function() {
 			// Close this window and open the popup
-			$('#auth').hide();
-			$('#success').show();
+			$hide('auth');
+			$show('success');
 		},
 		'error': function () {
-			$('#auth').hide();
-			$('#error').show();
+			$hide('auth');
+			$show('error');
 		}
 	});
-});
+}
+$onload(init);
