@@ -24,15 +24,19 @@
 							<span ng-switch on="org.logo">
 								<div ng-switch-when="pic" style="background-image: url('https://trello-logos.s3.amazonaws.com/{{org.logoHash}}/30.png');" class="org-logo"></div>
 								<div ng-switch-when="me" class="org-logo org-me"></div>
+								<div ng-switch-when="star" class="org-logo org-star"></div>
 								<div ng-switch-when="org" class="org-logo org-default"></div>
 							</span>
 							{{org.displayName}}
 						</a>
 					</span>
 				</li>
-				<li ng-repeat="board in org.boards | filter:search | orderBy:'sortName'">
+				<li ng-repeat="board in org.boards | filter:search | orderBy:'sortName'" ng-class="{'starred': board.starred}">
 					<span class="board-name">
-						<a href="{{board.url}}" target="_blank">{{board.name}}</a>
+						<a href="{{board.url}}" target="_blank">
+							<span type="button" class="star" ng-click="starBoard($event, board.id)">&#x2605;</span>
+							{{board.name}}
+						</a>
 					</span>
 				</li>
 			</ul>

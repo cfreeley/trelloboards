@@ -3,12 +3,14 @@ var TB_APP_KEY = 'd8c65fac278e6cfc05f5ef3a88aea5c3';
 /**
  * Load all the board into an array grouped by their organisation
  *
- * @param boards
- * @param orgs
  * @return {Array}
  */
-function loadBoards(boards, orgs) {
-	var i, l, org, board;
+function loadBoards() {
+	var i, l, orgs, org, boards, board;
+
+	// Load orgs and boards from local storage
+	orgs = JSON.parse(localStorage.trello_orgs || "[]");
+	boards = JSON.parse(localStorage.trello_boards || "[]");
 
 	// Hash of orgs, "indexed" by id so boards can be easily sorted
 	var orgs_indexed = {'me': {
@@ -17,11 +19,22 @@ function loadBoards(boards, orgs) {
 		'logo': 'me',
 		'url': 'https://trello.com/',
 		'displayName': 'My Boards',
+		'sortName': 'aab',
+		'boards': []
+	}, 'star': {
+		'id': 'star',
+		'name': 'star',
+		'logo': 'star',
+		'url': 'https://trello.com/',
+		'displayName': 'Starred',
 		'sortName': 'aaa',
 		'boards': []
 	}},
 	// Array of orgs and their boards, to be filtered ready for display
 	org_boards = [];
+
+	// Get our array of starred boards
+	var starred = JSON.parse(localStorage.trello_starred || "[]");
 
 	// Load orgs into list
 	for(i = 0, l = orgs.length; i < l; ++i) {
@@ -38,6 +51,13 @@ function loadBoards(boards, orgs) {
 		if(board.closed || !board.pinned) continue;
 		// Set the sort name of the board allowing case-insensitive sorting
 		board.sortName = board.name.toLowerCase();
+		// Check if the board should be added to the starred list
+		if(starred.indexOf(board.id) > -1) {
+			board.starred = true;
+			orgs_indexed['star'].boards.push(board);
+		} else {
+			board.starred = false;
+		}
 		// Push the board onto the list under its parent organisation
 		if(board.idOrganization && orgs_indexed[board.idOrganization]) {
 			orgs_indexed[board.idOrganization].boards.push(board);
@@ -54,7 +74,7 @@ function loadBoards(boards, orgs) {
 	}
 
 	// Add "my boards"
-	org_boards.push(orgs_indexed['me']);
+	org_boards.push(orgs_indexed['star'], orgs_indexed['me']);
 
 	return org_boards;
 }
@@ -75,6 +95,20 @@ function trelloApiUrl(path) {
 	return 'https://api.trello.com/1' + path + '?key=' + TB_APP_KEY + '&token=' + localStorage.trello_token;
 }
 
+function toggleStarred(board_id) {
+	var starred = JSON.parse(localStorage.trello_starred || "[]");
+	var i = starred.indexOf(board_id);
+	if(i > -1) {
+		// Board is already starred
+		starred.splice(i, 1);
+	} else {
+		// Board isn't yet starred!
+		starred.push(board_id);
+	}
+	// Save starred list
+	localStorage.trello_starred = JSON.stringify(starred);
+}
+
 /**
  * Boards List Angular JS controller
  *
@@ -84,21 +118,31 @@ function trelloApiUrl(path) {
  */
 function BoardsCtl($scope, $http) {
 	// Initialise boards list to local boards list
-	$scope.orgs = JSON.parse(localStorage.trello_orgs || "[]");
+	$scope.orgs = loadBoards();
+
+	// Setup "star" action
+	$scope.starBoard = function($event, board_id) {
+		$event.preventDefault();
+		toggleStarred(board_id);
+		$scope.orgs = loadBoards();
+	};
 
 	// Send off HTTP request to get organisations for user
 	$http
 		.get(trelloApiUrl('/members/me/organizations/'))
 		.error(apiError)
 		.success(function(response_orgs) {
+			// Update stored orgs
+			localStorage.trello_orgs = JSON.stringify(response_orgs);
 			// Send off HTTP request to refresh boards list
 			$http
 				.get(trelloApiUrl('/members/me/boards/'))
 				.error(apiError)
 				.success(function(response_boards) {
-					var orgs = loadBoards(response_boards, response_orgs)
-					localStorage.trello_orgs = JSON.stringify(orgs);
-					$scope.orgs = orgs;
+					// Update stored orgs
+					localStorage.trello_boards = JSON.stringify(response_boards);
+					// Re-load boards
+					$scope.orgs = loadBoards();
 				});
 		});
 }

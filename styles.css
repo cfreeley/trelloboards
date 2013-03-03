@@ -80,15 +80,20 @@ body {
 #boards_list li.org a .org-logo.org-me {
 	background-image: url(images/me.png);
 }
-
 #boards_list li.org a:hover .org-logo.org-me {
 	background-image: url(images/me-hover.png);
+}
+
+#boards_list li.org a .org-logo.org-star {
+	background-image: url(images/star.png);
+}
+#boards_list li.org a:hover .org-logo.org-star {
+	background-image: url(images/star-hover.png);
 }
 
 #boards_list li.org a .org-logo.org-default {
 	background-image: url(images/org.png);
 }
-
 #boards_list li.org a:hover .org-logo.org-default {
 	background-image: url(images/org-hover.png);
 }
@@ -151,4 +156,42 @@ h1 {
 	float: left;
 	color: #999;
 	font-size: 90%;
+}
+
+li:hover .star, li:hover .close {
+	visibility: visible;
+}
+
+.close, .star {
+	float: right;
+	line-height: 20px;
+	color: #ffffff;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+	opacity: 0.2;
+	visibility: hidden;
+	margin: 0;
+	padding: 0 4px;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+	-webkit-appearance: none;
+	vertical-align: middle;
+	outline: none;
+}
+
+.star {
+	font-size: 0.8em !important;
+}
+
+.close {
+	font-size: 1.24em !important;
+	margin-top: -1px;
+}
+
+.star:hover,
+.close:hover {
+	opacity: 0.8;
+}
+li.starred .star {
+	opacity: 1;
 }
