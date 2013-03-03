@@ -90,7 +90,7 @@ function closePopup() {
 	// Close popup and open auth tab
 	setTimeout(function() {
 		window.close();
-		chrome.tabs.create({url: chrome.extension.getURL('authorise.html')});
+		chrome.tabs.create({url: chrome.extension.getURL('settings.html')});
 	}, 100);
 }
 
@@ -149,10 +149,17 @@ $click('close', function(ev) {
 	window.close();
 });
 
+// Logout link
 $click('logout', function() {
 	clearData();
 	closePopup();
-	return false;
+});
+
+// Settings link
+
+// Logout link
+$click('settings', function() {
+	closePopup();
 });
 
 // Initialise the extension!
