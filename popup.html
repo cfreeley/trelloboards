@@ -34,6 +34,7 @@
 				<li ng-repeat="board in org.boards | filter:search | orderBy:'sortName'" ng-class="{'starred': board.starred}">
 					<span class="board-name">
 						<a href="{{board.url}}" target="_blank">
+							<span type="button" class="close" ng-click="hideBoard($event, board.id)">&#x00D7;</span>
 							<span type="button" class="star" ng-click="starBoard($event, board.id)">&#x2605;</span>
 							{{board.name}}
 						</a>

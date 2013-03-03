@@ -35,6 +35,7 @@ function loadBoards() {
 
 	// Get our array of starred boards
 	var starred = JSON.parse(localStorage.trello_starred || "[]");
+	var hidden = JSON.parse(localStorage.trello_hidden || "[]");
 
 	// Load orgs into list
 	for(i = 0, l = orgs.length; i < l; ++i) {
@@ -49,6 +50,8 @@ function loadBoards() {
 		board = boards[i];
 		// Don't include closed boards
 		if(board.closed || !board.pinned) continue;
+		// Check if the board is hidden
+		if(hidden.indexOf(board.id) > -1) continue;
 		// Set the sort name of the board allowing case-insensitive sorting
 		board.sortName = board.name.toLowerCase();
 		// Check if the board should be added to the starred list
@@ -95,20 +98,6 @@ function trelloApiUrl(path) {
 	return 'https://api.trello.com/1' + path + '?key=' + TB_APP_KEY + '&token=' + localStorage.trello_token;
 }
 
-function toggleStarred(board_id) {
-	var starred = JSON.parse(localStorage.trello_starred || "[]");
-	var i = starred.indexOf(board_id);
-	if(i > -1) {
-		// Board is already starred
-		starred.splice(i, 1);
-	} else {
-		// Board isn't yet starred!
-		starred.push(board_id);
-	}
-	// Save starred list
-	localStorage.trello_starred = JSON.stringify(starred);
-}
-
 /**
  * Boards List Angular JS controller
  *
@@ -119,6 +108,13 @@ function toggleStarred(board_id) {
 function BoardsCtl($scope, $http) {
 	// Initialise boards list to local boards list
 	$scope.orgs = loadBoards();
+
+	// Setup close action
+	$scope.hideBoard = function($event, board_id) {
+		$event.preventDefault();
+		toggleHidden(board_id);
+		$scope.orgs = loadBoards();
+	};
 
 	// Setup "star" action
 	$scope.starBoard = function($event, board_id) {
