@@ -76,6 +76,22 @@ function BoardsCtl($scope, $http) {
 		});
 }
 
+/**
+ * Apply i18n to any elements in $scope with a data-message attribute.
+ *
+ * @param $scope
+ */
+function translate($scope) {
+  var elements = $scope.querySelectorAll('[data-message]');
+  for (var i = 0; i < elements.length; ++i) {
+    var element = elements[i];
+    if(element.dataset && element.dataset.message) {
+    	console.log(element, element.dataset.message, chrome.i18n.getMessage(element.dataset.message));
+    	element.innerHTML = chrome.i18n.getMessage(element.dataset.message);
+    }
+	}
+}
+
 // Setup form elements
 $('#close').click(function(ev) {
 	ev.stopPropagation();
@@ -95,4 +111,7 @@ $(function() {
 
 	// show the boards list.
 	$('#loading_wrapper').show();
+
+	// translate the extension.
+	translate(document);
 });
