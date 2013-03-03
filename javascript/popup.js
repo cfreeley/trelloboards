@@ -169,6 +169,9 @@ function init() {
 		return;
 	}
 
+	// Translate the app!
+	translate(document);
+
 	// show the boards list.
 	$show('loading_wrapper');
 }

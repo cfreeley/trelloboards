@@ -1,8 +1,8 @@
 {
-	"name": "Boards for Trello",
+	"name": "__MSG_extensionName__",
 	"version": "1.0.3",
 	"manifest_version": 2,
-	"description": "View a list of all of your Trello boards.",
+	"description": "__MSG_extensionDescription__",
 	"icons": {
 		"128": "icon-128.png",
 		"32": "icon-32.png",
@@ -13,5 +13,6 @@
 		"default_popup": "popup.html"
 	},
 	"permissions": ["https://api.trello.com/"],
-	"content_security_policy": "script-src 'self' https://api.trello.com https://ssl.google-analytics.com https://ajax.googleapis.com; object-src 'self'"
+	"content_security_policy": "script-src 'self' https://api.trello.com https://ssl.google-analytics.com https://ajax.googleapis.com; object-src 'self'",
+	"default_locale": "en"
 }

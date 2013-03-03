@@ -47,3 +47,20 @@ function toggleHidden(board_id) {
 	// Save hidden list
 	localStorage.trello_hidden = JSON.stringify(hidden);
 }
+
+
+/**
+ * Apply i18n to any elements in $scope with a data-message attribute.
+ *
+ * @param $scope
+ */
+function translate($scope) {
+	var elements = $scope.querySelectorAll('[data-message]');
+	for (var i = 0; i < elements.length; ++i) {
+		var element = elements[i];
+		if(element.dataset && element.dataset.message) {
+			//console.log(element, element.dataset.message, chrome.i18n.getMessage(element.dataset.message));
+			element.innerHTML = chrome.i18n.getMessage(element.dataset.message);
+		}
+	}
+}
