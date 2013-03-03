@@ -35,7 +35,7 @@ function loadBoards(boards, orgs) {
 	for(i = 0, l = boards.length; i < l; ++i) {
 		board = boards[i];
 		// Don't include closed boards
-		if(board.closed) continue;
+		if(board.closed || !board.pinned) continue;
 		// Set the sort name of the board allowing case-insensitive sorting
 		board.sortName = board.name.toLowerCase();
 		// Push the board onto the list under its parent organisation
