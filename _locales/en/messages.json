@@ -12,5 +12,8 @@
   },
   "favourites": {
     "message": "favourites"
+  },
+  "my_boards": {
+    "message": "My Boards"
   }
 }

@@ -64,3 +64,12 @@ function translate($scope) {
 		}
 	}
 }
+
+/**
+ * Capitalise the first letter of the given string
+ *
+ * @param str
+ */
+function capitalise(str) {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+}

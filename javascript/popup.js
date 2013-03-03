@@ -18,7 +18,7 @@ function loadBoards() {
 		'name': 'me',
 		'logo': 'me',
 		'url': 'https://trello.com/',
-		'displayName': 'My Boards',
+		'displayName': capitalise(chrome.i18n.getMessage('my_boards')),
 		'sortName': 'aab',
 		'boards': []
 	}, 'star': {
@@ -26,7 +26,7 @@ function loadBoards() {
 		'name': 'star',
 		'logo': 'star',
 		'url': 'https://trello.com/',
-		'displayName': 'Starred',
+		'displayName': capitalise(chrome.i18n.getMessage('favourites')),
 		'sortName': 'aaa',
 		'boards': []
 	}},
