@@ -142,7 +142,7 @@ h1 {
 	display: block;
 	width: 16px;
 	height: 16px;
-	background: url('ajax-loader.gif') no-repeat;
+	background: url('/images/ajax-loader.gif') no-repeat;
 }
 
 .footer {
