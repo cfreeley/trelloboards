@@ -34,8 +34,8 @@
 				<li ng-repeat="board in org.boards | filter:search | orderBy:'sortName'" ng-class="{'starred': board.starred}">
 					<span class="board-name">
 						<a href="{{board.url}}" target="_blank">
-							<span type="button" class="close" ng-click="hideBoard($event, board.id)">&#x00D7;</span>
-							<span type="button" class="star" ng-click="starBoard($event, board.id)">&#x2605;</span>
+							<span class="close" ng-click="hideBoard($event, board.id)" title="Hide">&#x00D7;</span>
+							<span class="star" ng-click="starBoard($event, board.id)">&#x2605;</span>
 							{{board.name}}
 						</a>
 					</span>
@@ -45,7 +45,7 @@
 
 		<div class="footer">
 			<a href="#" id="logout" class="footer-link">Logout</a>
-			<a href="#" id="settings" class="footer-link">Setings</a>
+			<a href="#" id="settings" class="footer-link">Settings</a>
 			<a href="https://trello.com/" target="_blank" class="trello-link">Go to trello.com</a>
 		</div>
 	</div>
