@@ -73,3 +73,17 @@ function translate($scope) {
 function capitalise(str) {
 	return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+/**
+ * Return true if the extension has been updated
+ *
+ * @return bool
+ */
+function checkForNewVersion() {
+	// Get the last known version
+	var last_version = localStorage.last_version, current_version = chrome.app.getDetails().version;
+	// Store the current version as the last
+	localStorage.last_version = current_version;
+	// Return true if there was no existing version check, or it's an old version
+	return (last_version === '') || (last_version < current_version);
+}

@@ -13,6 +13,22 @@
 			<div id="updating" style="display: none;"></div>
 		</h1>
 
+		<div id="new_version" style="display: none;">
+			<div class="success">
+				<p>
+					<strong>New!</strong>
+				</p>
+				<p class="indent">
+					Click <strong>&#x2605;</strong> to pin your <span data-lang="favourite">favourite</span>
+					boards at the top of the list.
+				</p>
+				<p class="indent">
+					Click <strong>&#x00D7;</strong> to hide a board - it can be restored from
+					the <a href="#" id="update_settings" tabindex="-1">Settings</a>.
+				</p>
+			</div>
+		</div>
+
 		<div ng-controller="BoardsCtl">
 			<div id="boards_search">
 				<input type="text" id="search_input" ng-model="search.name" placeholder="Search your boards..." autofocus="autofocus" autocomplete="off" />

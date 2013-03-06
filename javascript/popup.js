@@ -156,8 +156,6 @@ $click('logout', function() {
 });
 
 // Settings link
-
-// Logout link
 $click('settings', function() {
 	closePopup();
 });
@@ -174,6 +172,13 @@ function init() {
 
 	// show the boards list.
 	$show('loading_wrapper');
+
+	if(checkForNewVersion()) {
+		$show('new_version');
+		$click('update_settings', function() {
+			closePopup();
+		});
+	}
 }
 
 $onload(init);
