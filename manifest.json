@@ -1,6 +1,6 @@
 {
 	"name": "__MSG_extensionName__",
-	"version": "1.0.3",
+	"version": "1.1.1",
 	"manifest_version": 2,
 	"description": "__MSG_extensionDescription__",
 	"icons": {
@@ -12,7 +12,11 @@
 		"default_icon": "icon.png",
 		"default_popup": "popup.html"
 	},
-	"permissions": ["https://api.trello.com/"],
+	"permissions": ["https://trello.com/1/authorize", "https://api.trello.com/*"],
 	"content_security_policy": "script-src 'self' https://api.trello.com https://ssl.google-analytics.com https://ajax.googleapis.com; object-src 'self'",
-	"default_locale": "en"
+	"default_locale": "en",
+	"homepage_url": "http://www.paulferrett.com/2012/trello-boards-chrome-extension/",
+	"web_accessible_resources": [
+		"settings.html"
+	]
 }
