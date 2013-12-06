@@ -57,6 +57,7 @@ a {
 #boards_list li {
 	padding: 0;
 	margin: 0 0 4px 0;
+	position: relative;
 }
 
 #boards_list li a {
@@ -229,4 +230,27 @@ li.starred .star {
 	padding-left: 4px;
 }
 
+.unseen-indicator {
+	visibility: hidden;
 
+	background-clip: border-box;
+	border-radius: 7px;
+	color: rgb(68, 68, 68);
+	background-color: rgba(0, 0, 0, 0);
+	background-image: linear-gradient(rgb(46, 133, 184) 0px, rgb(43, 124, 171) 100%);
+	display: block;
+	position: absolute;
+	right: 2px;
+	top: 8px;
+	height: 14px;
+	width: 14px;
+}
+
+li.unseen .unseen-indicator {
+	visibility: visible;
+}
+
+#boards_list li.unseen a:focus .unseen-indicator,
+#boards_list li.unseen a:hover .unseen-indicator {
+	visibility: hidden;
+}

@@ -47,12 +47,13 @@
 						</a>
 					</span>
 				</li>
-				<li ng-repeat="board in org.boards | filter:search | orderBy:'sortName'" ng-class="{'starred': board.starred}">
+				<li ng-repeat="board in org.boards | filter:search | orderBy:'sortName'" ng-class="{'starred': board.starred, 'unseen': board.unseen}">
 					<span class="board-name">
 						<a href="{{board.url}}" target="_blank">
 							<span class="close" ng-click="hideBoard($event, board.id)" title="Hide">&#x00D7;</span>
 							<span class="star" ng-click="starBoard($event, board.id)">&#x2605;</span>
 							{{board.name}}
+                            <span class="unseen-indicator" title="unseen activity"></span>
 						</a>
 					</span>
 				</li>

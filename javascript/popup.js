@@ -61,6 +61,12 @@ function loadBoards() {
 		} else {
 			board.starred = false;
 		}
+		// Check to see if there is unseen activity
+		if(board.dateLastActivity && board.dateLastView) {
+			board.unseen = (board.dateLastActivity > board.dateLastView);
+		} else {
+			board.unseen = false;
+		}
 		// Push the board onto the list under its parent organisation
 		if(board.idOrganization && orgs_indexed[board.idOrganization]) {
 			orgs_indexed[board.idOrganization].boards.push(board);
