@@ -18,5 +18,8 @@
 	"homepage_url": "http://www.paulferrett.com/2012/trello-boards-chrome-extension/",
 	"web_accessible_resources": [
 		"settings.html"
-	]
+	],
+	"background": {
+		"scripts": ["javascript/background.js"]
+  	}
 }
