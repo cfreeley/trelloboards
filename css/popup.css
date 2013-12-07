@@ -155,13 +155,13 @@ h1 {
 	padding: 8px 12px;
 	text-align: right;
 	border-top: 1px solid #DCDCDC;
+	margin-top: 22px;
 }
 
 .trello-link, .footer-link {
 	font-size: 14px;
-	color: #333;
+	color: #999;
 	text-decoration: none;
-	margin-right: 14px;
 }
 
 .trello-link:hover, .footer-link:hover {

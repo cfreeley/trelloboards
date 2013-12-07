@@ -35,22 +35,43 @@ function SettingsCtl($scope) {
 	$scope.hidden_boards = loadHiddenBoards();
 }
 
+function OptionsCtl($scope) {
+	// Save option
+	$scope.saveOption = function($event) {
+		var $el = $($event.target), option = $el.attr('name'), val;
+
+		// Set the val conditionally if the input is a checkbox
+		val = ($el.is(':checkbox') && !$event.target.checked) ? '' : val = $el.val();
+
+		// Update the scope
+		$scope[option] = val;
+
+		// Store the result in local storage
+		localStorage['trello_options_' + $el.attr('name')] = val;
+	};
+
+	// Setup default values
+	$.each(['notif_count'], function(_, option) {
+		$scope[option] = localStorage['trello_options_' + option];
+	});
+}
+
 function init() {
 	Trello.authorize({
 		'name':	"Boards for Trello",
 		'expiration': "never",
 		'success': function() {
 			// Close this window and open the popup
-			$hide('auth');
-			$show('success');
+			$('#auth').hide();
+			$('#success').show();
 		},
 		'error': function () {
-			$hide('auth');
-			$show('error');
+			$('#auth').hide();
+			$('#error').show();
 		}
 	});
 
-	// show the hidden boards list
-	$show('loading_wrapper');
+	// show the hidden areas
+	$('.loading_wrapper').show();
 }
 $onload(init);

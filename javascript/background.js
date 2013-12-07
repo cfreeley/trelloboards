@@ -44,6 +44,11 @@
 			setNotificationCountAndQueueNextUpdate(0);
 			return;
 		}
+		// Check if notif count is enabled
+		if (window.localStorage.trello_options_notif_count != 'enabled') {
+			setNotificationCountAndQueueNextUpdate(0);
+			return;
+		}
 
 		// Ajax request to Trello API
 		var xhr = new XMLHttpRequest();
