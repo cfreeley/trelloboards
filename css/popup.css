@@ -1,3 +1,13 @@
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
 body {
 	min-width: 320px;
 	font: 14px/18px "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -143,7 +153,7 @@ h1 {
 
 #updating {
 	position: absolute;
-	top: 8px;
+	top: 4px;
 	left: 2px;
 	display: block;
 	width: 16px;
@@ -223,11 +233,76 @@ li.starred .star {
 	border-radius: 4px;
 }
 
-#new_version p {
-	margin: 4px 0;
+#new_version {
+	background: #ecf0f1;
+	padding: 8px;
+	margin-bottom: 20px;
+	color: #354a5f;
 }
-#new_version p.indent {
-	padding-left: 4px;
+
+#new_version h3 {
+	margin: 6px 0;
+	font-weight: 500;
+	font-size: 1.3em;
+	border-bottom: 1px solid #999;
+	padding-bottom: 12px;
+}
+
+ul.features {
+	padding: 0;
+}
+ul.features li {
+	color: #444;
+	margin-bottom: 6px;
+	font-weight: 200;
+	font-size: 1.3em;
+	list-style: none;
+	padding: 14px 0 0 90px;
+	position: relative;
+	height: 60px;
+	line-height: 1.3em;
+}
+ul.features li img {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#new_version p {
+	margin: 32px 0;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.plea {
+	font-size: 1.2em;
+	line-height: 1.6em;
+	font-weight: 200;
+}
+
+.plea a {
+	font-weight: 300;
+}
+
+.plea em {
+	font-weight: 500;
+	font-style: italic;
+}
+
+.btn {
+	padding: 12px;
+	margin: 4px;
+	color: #FFF;
+	text-shadow: 1px 1px 1px #333;
+	background-color: #08c;
+	border-radius: 2px;
+	box-shadow: 1px 1px 2px #999;
+	border: 1px solid #0076B1;
+}
+.btn .btn-wide {
+	margin: 6px 12px;
 }
 
 .unseen-indicator {

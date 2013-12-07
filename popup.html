@@ -10,26 +10,31 @@
 		<h1>
 			<span data-message="extensionName">Boards for Trello</span>
 			<a href="#" id="close" tabindex="-1">&times;</a>
-			<div id="updating" style="display: none;"></div>
 		</h1>
 
 		<div id="new_version" style="display: none;">
-			<div class="success">
-				<p>
-					<strong>New!</strong>
-				</p>
-				<p class="indent">
-					Click <strong>&#x2605;</strong> to pin your <span data-lang="favourite">favourite</span>
-					boards at the top of the list.
-				</p>
-				<p class="indent">
-					Click <strong>&#x00D7;</strong> to hide a board - it can be restored from
-					the <a href="#" id="update_settings" tabindex="-1">Settings</a>.
-				</p>
-			</div>
+            <h3>New in version 1.2</h3>
+            <ul class="features">
+                <li class="clearfix">
+                    <img src="/images/option_notif_count.png" />
+                    View your unread notification count
+                </li>
+                <li class="clearfix">
+                    <img src="/images/option_unseen_marker.png" />
+                    See boards with unseen activity
+                </li>
+            </ul>
+            <p class="text-center plea">
+                <em>Use this extension often?</em><br />
+                Donate Now to join the
+                <a href="http://www.paulferrett.com/boards-for-trello/#wall" id="donation_link" tabindex="-1"><em>Wall of Fame</em></a>!
+            </p>
+            <p class="text-center">
+                <a href="#" id="new_version_ok" class="btn btn-wide">Got it, thanks!</a>
+            </p>
 		</div>
 
-		<div ng-controller="BoardsCtl">
+		<div ng-controller="BoardsCtl" id="boards_list_wrapper">
 			<div id="boards_search">
 				<input type="text" id="search_input" ng-model="search.name" placeholder="Search your boards..." autofocus="autofocus" autocomplete="off" />
 			</div>

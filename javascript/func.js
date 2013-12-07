@@ -75,15 +75,35 @@ function capitalise(str) {
 }
 
 /**
+ * Hide the dialog showing new version
+ */
+function hideNewVersionDialog() {
+	localStorage.new_version_ok = '1';
+	$hide('new_version');
+}
+
+/**
  * Return true if the extension has been updated
  *
  * @return bool
  */
 function checkForNewVersion() {
 	// Get the last known version
-	var last_version = localStorage.last_version, current_version = chrome.app.getDetails().version;
+	var last_version = localStorage.last_version, current_version = chrome.app.getDetails().version, is_new;
+
 	// Store the current version as the last
 	localStorage.last_version = current_version;
+
 	// Return true if there was no existing version check, or it's an old version
-	return (last_version === '') || (last_version < current_version);
+	if(is_new = (last_version === '') || (last_version < current_version)) {
+		// Clear the flag hiding the new version display
+		localStorage.new_version_ok = '0';
+
+		// Set new option values for added features
+		if(current_version == '1.2') {
+			localStorage['trello_options_notif_count'] = 'enabled';
+		}
+	}
+
+	return is_new;
 }

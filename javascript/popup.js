@@ -92,12 +92,9 @@ function apiError(data, status, headers, config) {
 	console.log("Trello API Error", data, status, headers);
 }
 
-function closePopup() {
+function showSettings() {
 	// Close popup and open auth tab
-	setTimeout(function() {
-		window.close();
-		chrome.tabs.create({url: chrome.extension.getURL('settings.html')});
-	}, 100);
+	chrome.tabs.create({url: chrome.extension.getURL('settings.html')});
 }
 
 function trelloApiUrl(path) {
@@ -158,18 +155,18 @@ $click('close', function(ev) {
 // Logout link
 $click('logout', function() {
 	clearData();
-	closePopup();
+	showSettings();
 });
 
 // Settings link
 $click('settings', function() {
-	closePopup();
+	showSettings();
 });
 
 // Initialise the extension!
 function init() {
 	if(!localStorage.trello_token) {
-		closePopup();
+		showSettings();
 		return;
 	}
 
@@ -179,10 +176,14 @@ function init() {
 	// show the boards list.
 	$show('loading_wrapper');
 
-	if(checkForNewVersion()) {
+	if(checkForNewVersion() || (localStorage.new_version_ok != '1')) {
 		$show('new_version');
-		$click('update_settings', function() {
-			closePopup();
+		$click('donation_link', function() {
+			hideNewVersionDialog();
+			chrome.tabs.create({url: "http://www.paulferrett.com/boards-for-trello/#wall"});
+		});
+		$click('new_version_ok', function() {
+			hideNewVersionDialog();
 		});
 	}
 }
