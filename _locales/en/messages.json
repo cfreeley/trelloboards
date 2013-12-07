@@ -3,6 +3,10 @@
     "message": "Boards for Trello",
     "description": "Name of the extension."
   },
+  "extensionShortName": {
+    "message": "Trello Boards",
+    "description": "Short Name of the extension."
+  },
   "extensionDescription": {
     "message": "View a list of all of your Trello boards.",
     "description": "Description of the extension."
