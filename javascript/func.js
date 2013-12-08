@@ -98,11 +98,11 @@ function checkForNewVersion() {
 	if(is_new = (last_version === '') || (last_version < current_version)) {
 		// Clear the flag hiding the new version display
 		localStorage.new_version_ok = '0';
+	}
 
-		// Set new option values for added features
-		if(current_version == '1.2') {
-			localStorage['trello_options_notif_count'] = 'enabled';
-		}
+	// Set default option values for added features
+	if((typeof localStorage.trello_options_notif_count) == 'undefined') {
+		localStorage.trello_options_notif_count = 'enabled';
 	}
 
 	return is_new;
