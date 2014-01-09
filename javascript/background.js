@@ -5,7 +5,7 @@
  */
 
 (function () {
-	var NOTIF_CHECK_DELAY_SECONDS = 5,
+	var NOTIF_CHECK_DELAY_SECONDS = 60,
 		APP_API_KEY = "d8c65fac278e6cfc05f5ef3a88aea5c3";
 
 	var getNotificationAPIUrl = function (token) {
