@@ -97,7 +97,7 @@ function checkForNewVersion() {
 	// Return true if there was no existing version check, or it's an old version
 	if(is_new = (last_version === '') || (last_version < current_version)) {
 		// Clear the flag hiding the new version display
-		localStorage.new_version_ok = '0';
+		//localStorage.new_version_ok = '0';
 	}
 
 	// Set default option values for added features

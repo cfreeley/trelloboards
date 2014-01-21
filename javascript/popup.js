@@ -55,9 +55,11 @@ function loadBoards() {
 		// Set the sort name of the board allowing case-insensitive sorting
 		board.sortName = board.name.toLowerCase();
 		// Check if the board should be added to the starred list
+		if(boardIsTrelloStarred(board, orgs_indexed)) {
+			continue;
+		}
 		if(starred.indexOf(board.id) > -1) {
-			board.starred = true;
-			orgs_indexed['star'].boards.push(board);
+			starBoard(board, orgs_indexed);
 		} else {
 			board.starred = false;
 		}
@@ -86,6 +88,28 @@ function loadBoards() {
 	org_boards.push(orgs_indexed['star'], orgs_indexed['me']);
 
 	return org_boards;
+}
+
+function boardIsTrelloStarred(board, orgs_indexed) {
+	var org_id = board.idOrganization || 'me';
+	if(!orgs_indexed[org_id]) return false;
+	if(!orgs_indexed[org_id].boards) return false;
+	for(var i = 0, l = orgs_indexed[org_id].boards.length; i < l; ++i)  {
+		if(orgs_indexed[org_id].boards[i].id === board.id) {
+			if(!orgs_indexed[org_id].boards[i].starred) {
+				starBoard(orgs_indexed[org_id].boards[i], orgs_indexed);
+			}
+			return true;
+		}
+	}
+	return false;
+}
+
+function starBoard(board, orgs_indexed) {
+	// Mark the board as starred
+	board.starred = true;
+	// Add to the starred boards list
+	orgs_indexed['star'].boards.push(board);
 }
 
 function apiError(data, status, headers, config) {

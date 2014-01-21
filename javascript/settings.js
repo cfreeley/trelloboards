@@ -1,17 +1,17 @@
 function loadHiddenBoards() {
 	var hidden = JSON.parse(localStorage.trello_hidden || "[]");
 	if(!hidden.length) {
-		return [];
+		return {};
 	}
 
 	var i, l, board;
 	var boards = JSON.parse(localStorage.trello_boards || "[]");
-	var hidden_boards = [];
+	var hidden_boards = {};
 
 	for(i = 0, l = boards.length; i < l; ++i) {
 		board = boards[i];
 		if(hidden.indexOf(board.id) > -1) {
-			hidden_boards.push(board);
+			hidden_boards[board.id]= board;
 		}
 	}
 
@@ -32,6 +32,16 @@ function SettingsCtl($scope) {
 		$scope.hidden_boards = loadHiddenBoards();
 	};
 
+	$scope.hasHiddenBoards = function() {
+		console.log($scope.hidden_boards);
+		for(var key in $scope.hidden_boards) {
+			if($scope.hidden_boards.hasOwnProperty(key)) {
+				return true;
+			}
+		}
+		return false;
+	};
+
 	$scope.hidden_boards = loadHiddenBoards();
 }
 
@@ -41,7 +51,7 @@ function OptionsCtl($scope) {
 		var $el = $($event.target), option = $el.attr('name'), val;
 
 		// Set the val conditionally if the input is a checkbox
-		val = ($el.is(':checkbox') && !$event.target.checked) ? '' : val = $el.val();
+		val = ($el.is(':checkbox') && !$event.target.checked) ? '' : $el.val();
 
 		// Update the scope
 		$scope[option] = val;

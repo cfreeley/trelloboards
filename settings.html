@@ -116,7 +116,7 @@
             <fieldset>
                 <legend>Hidden Boards</legend>
                 <div ng-controller="SettingsCtl" class="loading_wrapper">
-                    <p ng-show="!hidden_boards.length" class="muted">
+                    <p ng-show="!hasHiddenBoards()" class="muted">
                         <em>No boards have been hidden.</em>
                     </p>
                     <ul class="unstyled">
