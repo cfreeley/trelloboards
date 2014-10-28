@@ -89,13 +89,19 @@ function hideNewVersionDialog() {
  */
 function checkForNewVersion() {
 	// Get the last known version
-	var last_version = localStorage.last_version, current_version = chrome.app.getDetails().version, is_new;
+	var last_version = localStorage.last_version,
+        current_version = chrome.app.getDetails().version,
+        is_new;
 
 	// Store the current version as the last
 	localStorage.last_version = current_version;
 
+    // Only compare major/minor version changes. Ignore revision changes.
+    last_version = removeVersionRevisionNumber(last_version);
+    current_version = removeVersionRevisionNumber(current_version);
+
 	// Return true if there was no existing version check, or it's an old version
-	if(is_new = (last_version === '') || (last_version < current_version)) {
+	if((is_new = last_version === '') || (last_version < current_version)) {
 		// Clear the flag hiding the new version display
 		//localStorage.new_version_ok = '0';
 	}
@@ -106,4 +112,8 @@ function checkForNewVersion() {
 	}
 
 	return is_new;
+}
+
+function removeVersionRevisionNumber(v) {
+    return (''+v).replace(/^(\d+).(\d+).\d+$/, "$1.$2");
 }
