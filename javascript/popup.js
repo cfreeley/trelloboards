@@ -49,7 +49,7 @@ function loadBoards() {
 	for(i = 0, l = boards.length; i < l; ++i) {
 		board = boards[i];
 		// Don't include closed boards
-		if(board.closed || !board.pinned) continue;
+		if(board.closed) continue;
 		// Check if the board is hidden
 		if(hidden.indexOf(board.id) > -1) continue;
 		// Set the sort name of the board allowing case-insensitive sorting
