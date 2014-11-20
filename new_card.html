@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app ng-csp>
+<head>
+	<title data-message="extensionName">Create a Trello card</title>
+	<link rel="stylesheet" href="/css/popup.css" />
+	<script type="text/javascript" src="/javascript/ga.js"></script>
+</head>
+<body>
+	<div id="loading_wrapper" style="display: none;">
+		<h1>
+			<span>Create a Trello Card</span>
+			<a href="#" id="close" tabindex="-1">&times;</a>
+		</h1>
+
+		<div ng-controller="BoardsCtl" id="boards_list_wrapper">
+			<div id="boards_search">
+				<span>Card Title</span>
+				<input type="text" ng-model="card.title" id="search_input" />
+				<span>Card Description</span>
+				<textarea id="search_input" class="list-card-composer-textarea js-card-title" style="overflow: hidden; word-wrap: break-word; resize: none; height: 150px;">{{ localStorage.lastSelected }}</textarea>
+			</div>
+			<ul id="boards_list" ng-repeat="org in orgs">
+				<li class="org" ng-class="{'org-empty': !(org.boards | filter:search).length}">
+					<span>
+						<a href="{{org.url}}" target="_blank" tabindex="-1">
+							<span ng-switch on="org.logo">
+								<div ng-switch-when="pic" style="background-image: url('https://trello-logos.s3.amazonaws.com/{{org.logoHash}}/30.png');" class="org-logo"></div>
+								<div ng-switch-when="me" class="org-logo org-me"></div>
+								<div ng-switch-when="star" class="org-logo org-star"></div>
+								<div ng-switch-when="org" class="org-logo org-default"></div>
+							</span>
+							{{org.displayName}}
+						</a>
+					</span>
+				</li>
+				<li ng-repeat="board in org.boards" ng-class="{'starred': board.starred, 'unseen': board.unseen}">
+					<span class="board-name">
+						<a href="{{board.url}}" target="_blank">
+							<span class="close" ng-click="hideBoard($event, board.id)" title="Hide">&#x00D7;</span>
+							<span class="star" ng-click="starBoard($event, board.id)">&#x2605;</span>
+							{{board.name}}
+                            <span class="unseen-indicator" title="unseen activity"></span>
+						</a>
+					</span>
+				</li>
+			</ul>
+		</div>
+
+		<div class="footer">
+			<a href="#" id="logout" class="footer-link">Logout</a>
+			<a href="#" id="settings" class="footer-link">Settings</a>
+			<a href="https://trello.com/" target="_blank" class="trello-link">Trello.com</a>
+		</div>
+	</div>
+	<script type="text/javascript" src="/javascript/angular.min.js"></script>
+	<script type="text/javascript" src="/javascript/func.js"></script>
+	<script type="text/javascript" src="/javascript/new_card.js"></script>
+</body>
+</html>

@@ -4,3 +4,12 @@ Trello Boards presents a list of all your active Trello Boards on the extension 
 your own bookmarks to each new board created.
 
 Track development: https://trello.com/board/trello-boards-chrome-extension/4f35cbaf2bacc8c844042895
+
+FORK: cfreeley/trelloboards is adding an additional set of tools to make this extension more powerful.
+
+In progress:
+- Use selected text to write trello card
+
+TODO:
+- Integrate Cardorizer
+- Copy all from list
