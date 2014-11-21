@@ -12,39 +12,54 @@
 			<a href="#" id="close" tabindex="-1">&times;</a>
 		</h1>
 
-		<div ng-controller="BoardsCtl" id="boards_list_wrapper">
+		<div ng-controller="NewCardCtl" id="boards_list_wrapper">
 			<div id="boards_search">
 				<span>Card Title</span>
-				<input type="text" ng-model="card.title" id="search_input" />
+				<input type="text" ng-model="card.name" id="search_input" />
 				<span>Card Description</span>
-				<textarea id="search_input" class="list-card-composer-textarea js-card-title" style="overflow: hidden; word-wrap: break-word; resize: none; height: 150px;">{{ localStorage.lastSelected }}</textarea>
+				<textarea id="search_input" ng-model='card.desc' class="list-card-composer-textarea js-card-title" style="overflow: hidden; word-wrap: break-word; resize: none; height: 150px;"></textarea>
 			</div>
-			<ul id="boards_list" ng-repeat="org in orgs">
-				<li class="org" ng-class="{'org-empty': !(org.boards | filter:search).length}">
-					<span>
-						<a href="{{org.url}}" target="_blank" tabindex="-1">
-							<span ng-switch on="org.logo">
-								<div ng-switch-when="pic" style="background-image: url('https://trello-logos.s3.amazonaws.com/{{org.logoHash}}/30.png');" class="org-logo"></div>
-								<div ng-switch-when="me" class="org-logo org-me"></div>
-								<div ng-switch-when="star" class="org-logo org-star"></div>
-								<div ng-switch-when="org" class="org-logo org-default"></div>
-							</span>
-							{{org.displayName}}
-						</a>
-					</span>
-				</li>
-				<li ng-repeat="board in org.boards" ng-class="{'starred': board.starred, 'unseen': board.unseen}">
-					<span class="board-name">
-						<a href="{{board.url}}" target="_blank">
-							<span class="close" ng-click="hideBoard($event, board.id)" title="Hide">&#x00D7;</span>
-							<span class="star" ng-click="starBoard($event, board.id)">&#x2605;</span>
-							{{board.name}}
-                            <span class="unseen-indicator" title="unseen activity"></span>
-						</a>
-					</span>
-				</li>
-			</ul>
-		</div>
+			<!-- List of Boards -->
+			<div ng-hide="selectedBoard != 0">
+				<h3>For which Board?</h3>
+				<ul id="boards_list" ng-repeat="org in orgs">
+					<li class="org" ng-class="{'org-empty': !(org.boards | filter:search).length}">
+						<span>
+							<a target="_blank" tabindex="-1">
+								<span ng-switch on="org.logo">
+									<div ng-switch-when="pic" style="background-image: url('https://trello-logos.s3.amazonaws.com/{{org.logoHash}}/30.png');" class="org-logo"></div>
+									<div ng-switch-when="me" class="org-logo org-me"></div>
+									<div ng-switch-when="star" class="org-logo org-star"></div>
+									<div ng-switch-when="org" class="org-logo org-default"></div>
+								</span>
+								{{org.displayName}}
+							</a>
+						</span>
+					</li>
+					<li ng-repeat="board in org.boards" ng-class="{'starred': board.starred, 'unseen': board.unseen}">
+						<span class="board-name">
+							<a href ng-click="selectBoard($event, board.id)">
+								<span class="close" ng-click="hideBoard($event, board.id)" title="Hide">&#x00D7;</span>
+								<span class="star" ng-click="starBoard($event, board.id)">&#x2605;</span>
+								{{board.name}}
+	                            <span class="unseen-indicator" title="unseen activity"></span>
+	                        </a>
+						</span>
+					</li>
+				</ul>
+			</div>
+			<!-- List of Decks -->
+			<div ng-show="selectedBoard != 0">
+				<h3>On which deck?</h3>
+					<li id='decks_list' ng-repeat="deck in decks" >
+						<span class="board-name">
+							<a href ng-click="selectDeck($event,deck.id)">
+								{{deck.name}}
+	                            <span class="unseen-indicator" title="unseen activity"></span>
+	                        </a>
+						</span>
+					</li>
+			</div>
 
 		<div class="footer">
 			<a href="#" id="logout" class="footer-link">Logout</a>

@@ -16,7 +16,7 @@
 	},
 	"permissions": [
 		"https://trello.com/1/authorize", "https://api.trello.com/*",
-		"contextMenus", "tabs"
+		"contextMenus", "tabs"	
 	],
 	"content_security_policy": "script-src 'self' https://api.trello.com https://ssl.google-analytics.com https://ajax.googleapis.com; object-src 'self'",
 	"default_locale": "en",

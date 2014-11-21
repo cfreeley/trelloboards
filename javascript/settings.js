@@ -78,7 +78,8 @@ function init() {
 		'error': function () {
 			$('#auth').hide();
 			$('#error').show();
-		}
+		},
+		'scope': { 'write': true, 'read': true }
 	});
 
 	// show the hidden areas

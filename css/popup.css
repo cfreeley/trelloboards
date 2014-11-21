@@ -79,6 +79,34 @@ a {
 	text-decoration: none;
 }
 
+#decks_list {
+	padding: 0;
+	margin: 0;
+}
+
+#decks_list li {
+	padding: 0;
+	margin: 0 0 4px 0;
+	position: relative;
+}
+
+#decks_list li a {
+	color: #444444;
+	cursor: pointer;
+	display: block;
+	font-weight: bold;
+	padding: 6px 10px;
+	text-decoration: none;
+}
+
+#boards_list li a:focus,
+#boards_list li a:hover {
+	background: #2887bd;
+	color: #fff;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+	outline: none;
+}
+
 #boards_list li.org.org-empty {
 	display: none;
 }

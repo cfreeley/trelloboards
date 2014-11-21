@@ -87,6 +87,12 @@ function loadBoards() {
 	return org_boards;
 }
 
+function loadDecks() {
+	var decks = JSON.parse(localStorage.trello_decks || '[]');
+	return decks;
+
+}
+
 function apiError(data, status, headers, config) {
 	console.log("Trello API Error", data, status, headers);
 }
@@ -107,10 +113,13 @@ function trelloApiUrl(path) {
  * @param $http
  * @constructor
  */
-function BoardsCtl($scope, $http) {
+function NewCardCtl($scope, $http) {
 	// Initialise boards list to local boards list
 	$scope.orgs = loadBoards();
 	$scope.localStorage = localStorage;
+	$scope.card = {name:"", desc:localStorage.lastSelected};
+	$scope.selectedBoard = 0;
+	$scope.decks = [];
 
 	// Setup close action
 	$scope.hideBoard = function($event, board_id) {
@@ -124,6 +133,33 @@ function BoardsCtl($scope, $http) {
 		$event.preventDefault();
 		toggleStarred(board_id);
 		$scope.orgs = loadBoards();
+	};
+
+	$scope.selectBoard = function($event, board_id) {
+		$event.preventDefault();
+		$scope.selectedBoard = board_id;
+		// Send off HTTP request to get decks for selected board
+		$http
+			.get(trelloApiUrl('/boards/' + board_id + '/lists/'))
+			.error(apiError)
+			.success(function(response_boards) {
+				// Update stored orgs
+				localStorage.trello_decks = JSON.stringify(response_boards);
+				// Re-load boards
+				$scope.decks = loadDecks();
+		});
+	};
+
+	$scope.selectDeck = function($event, deck_id) {
+		$event.preventDefault();
+		console.log($scope.card);
+		// Send off HTTP request to get decks for selected board
+		$http
+			.post(trelloApiUrl('/lists/' + deck_id + "/cards/"), $scope.card)
+			.error(apiError)
+			.success(function(response) {
+				window.location = response.url;
+		});
 	};
 
 	// Send off HTTP request to get organisations for user
@@ -176,16 +212,6 @@ function init() {
 	// show the boards list.
 	$show('loading_wrapper');
 
-	if(checkForNewVersion() || (localStorage.new_version_ok != '1')) {
-		$show('new_version');
-		$click('donation_link', function() {
-			hideNewVersionDialog();
-			chrome.tabs.create({url: "http://www.paulferrett.com/boards-for-trello/#wall"});
-		});
-		$click('new_version_ok', function() {
-			hideNewVersionDialog();
-		});
-	}
 }
 
 $onload(init);
