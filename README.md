@@ -9,7 +9,7 @@ FORK: cfreeley/trelloboards is adding an additional set of tools to make this ex
 
 In progress:
 - Use selected text to write trello card
+- Option to 'Copy all cards in list'
 
 TODO:
 - Integrate Cardorizer
-- Copy all from list

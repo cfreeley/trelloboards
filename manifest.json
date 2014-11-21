@@ -25,6 +25,7 @@
 		"settings.html"
 	],
 	"background": {
-		"scripts": ["javascript/background.js"]
+		"scripts": ["javascript/background.js", "javascript/jquery.min.js", "javascript/angular.min.js", 
+					"javascript/trello_client.min.js"]
   	}
 }
