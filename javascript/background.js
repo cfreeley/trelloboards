@@ -27,7 +27,6 @@
 }
 
 function copyAllCards(obj) {
-	console.log(obj);
 	var regx = /(https:\/\/trello.com\/c\/)([^\/]*)/g;
 	var r = regx.exec(obj.pageUrl);
 	var cardId = r[2];
@@ -43,34 +42,19 @@ function copyAllCards(obj) {
     	}).success(function (cards) {
     		var s = "";
 			angular.forEach(cards, function(value, key) {
-			  s += value.name + ": " + value.url + "\n" + value.desc + "\n-----------------------\n";
+			  s += value.name + ": " + urlTrim(value.url) + "\n";
 			});
-			console.log(s);
-			window.prompt("Copy to clipboard: Ctrl+C, Enter", s);
+
+			window.prompt("Copy to clipboard: Cmd+C, Enter", s);
         });
     });
 }
-    /*
-	$http
-		.get(trelloApiUrl("/cards/" + cardId + "/list"))
-		.error(apiError)
-		.success(function(list) {
-			var lId = list.id;
-			$http
-				.get(trelloApiUrl("/lists/" + lId + "/cards"))
-				.error(apiError)
-				.success(function(cards) {
-					var s = "";
-					angular.forEach(cards, function(value, key) {
-					  s += value.url + "\n";
-					});
-					window.prompt("Copy to clipboard: Ctrl+C, Enter", s);
-				});
 
-		});
-*/
-
-
+function urlTrim(url)
+{
+	var regx = /https:\/\/trello.com\/c\/........\/\d\d\d\d/g;
+	return regx.exec(url)
+}
 
 
 (function () {

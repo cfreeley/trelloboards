@@ -99,6 +99,10 @@ function trelloApiUrl(path) {
 	return 'https://api.trello.com/1' + path + '?key=' + TB_APP_KEY + '&token=' + localStorage.trello_token;
 }
 
+angular.module('app', [])
+
+angular.module('app').controller(BoardsCtl)
+
 /**
  * Boards List Angular JS controller
  *
