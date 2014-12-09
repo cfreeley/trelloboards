@@ -42,7 +42,7 @@ function copyAllCards(obj) {
     	}).success(function (cards) {
     		var s = "";
 			angular.forEach(cards, function(value, key) {
-			  s += value.name + ": " + urlTrim(value.url) + "\n";
+			  s += value.name + ": " + urlTrim(value.url) + "\n\n";
 			});
 
 			window.prompt("Copy to clipboard: Cmd+C, Enter", s);
